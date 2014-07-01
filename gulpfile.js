@@ -82,7 +82,10 @@ gulp.task('php', function() {
 
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        proxy: proxyName
+        // proxy: proxyName
+        server: {
+
+        }
     });
 });
 
@@ -116,7 +119,10 @@ gulp.task('sassProd', function() {
 
 
 //Default Task
-gulp.task('default', ['jsHint', 'jsDev', 'sassDev', 'browser-sync', 'watch']);
+gulp.task('default', ['jsHint', 'jsDev', 'sassDev', 'watch']);
+
+//Gulp ProxyServe
+gulp.task('proxy', ['jsHint', 'jsDev', 'sassDev', 'browser-sync', 'watch']);
 
 //Production Task
 gulp.task('prod', ['jsProd','sassProd']);
