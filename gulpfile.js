@@ -1,0 +1,122 @@
+var gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    concat = require('gulp-concat');
+    browserSync = require('browser-sync'),
+    uglify = require('gulp-uglify'),
+    sass = require('gulp-sass'),
+    prefix = require('gulp-autoprefixer'),
+    jshint = require('gulp-jshint'),
+    filter = require('gulp-filter'),
+    stylish = require('jshint-stylish');
+
+//name of the proxy for the server, useful if using something like MAMP or WAMP add port if necessary
+proxyName = "http://thisisatest.site";
+
+jsHintSources = [
+  'assets/js/*.js'
+];
+
+jsSources = [
+  'assets/components/jquery/dist/jquery.js',
+
+  //Bootstrap if you want to comment out, please do.
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js',
+  'assets/components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js',
+
+  'assets/js/*.js'
+];
+
+sassSources = ['assets/sass/app.scss'];
+
+//Include paths for sass @import statements.
+sassIncludePaths = [
+  'assets/components/bootstrap-sass-official/assets/stylesheets/'
+];
+
+
+
+//Development Tasks
+gulp.task('jsHint', function() {
+  return gulp.src(jsHintSources)
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('jsDev', function() {
+  gulp.src(jsSources)
+    .pipe(concat('script.js'))
+    .pipe(gulp.dest('assets/compiled/js/'))
+    .pipe(browserSync.reload({stream:true}));
+});
+
+gulp.task('sassDev', function() {
+  gulp.src(sassSources)
+    .pipe(sass({
+      outputStyle: 'nested',
+      imagePath: 'assets/img',
+      includePaths: sassIncludePaths,
+      sourceMap: true
+    }).on('error', gutil.log))
+    .pipe(prefix("last 1 version", "> 1%", "ie 9", {map: false }).on('error', gutil.log))
+    .pipe(gulp.dest('assets/compiled/css/'))
+    .pipe(filter('**/*.css'))
+    .pipe(browserSync.reload({stream:true}));
+});
+
+//You can add a validator to this if you'd like.
+gulp.task('php', function() {
+  gulp.src('*.php')
+    .pipe(browserSync.reload({stream:true}))
+});
+
+
+gulp.task('browser-sync', function() {
+    browserSync.init(null, {
+        proxy: proxyName
+    });
+});
+
+gulp.task('watch', function() {
+  gulp.watch(jsSources, ['jsHint','jsDev']);
+  gulp.watch('assets/sass/*.scss', ['sassDev']);
+  gulp.watch('*.php', ['php']);
+});
+
+
+
+//Production Tasks
+gulp.task('jsProd', function() {
+  gulp.src(jsSources)
+    .pipe(concat('script.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('assets/compiled/js/'));
+});
+
+gulp.task('sassProd', function() {
+  gulp.src(sassSources)
+    .pipe(sass({
+      outputStyle: 'compressed',
+      imagePath: 'assets/img',
+      includePaths: sassIncludePaths
+    }).on('error', gutil.log))
+    .pipe(prefix("last 1 version", "> 1%", "ie 9", {map: false }).on('error', gutil.log))
+    .pipe(gulp.dest('assets/compiled/css/style.css'))
+});
+
+
+
+//Default Task
+gulp.task('default', ['jsHint', 'jsDev', 'sassDev', 'browser-sync', 'watch']);
+
+//Production Task
+gulp.task('prod', ['jsProd','sassProd']);

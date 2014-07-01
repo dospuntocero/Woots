@@ -1,0 +1,23 @@
+{
+  "name": "Woots",
+  "version": "0.0.1",
+  "description": "A starter template for Wordpress using Gulp to build and Bower for dependency management.",
+  "authors": [
+    "Jamie Spittal <spittal@randomshapes.com>",
+    "Matthew Hall <matt@randomshapes.com>"
+  ],
+  "license": "MIT",
+  "jshintConfig": {},
+  "devDependencies": {
+    "gulp": "~3.8.5",
+    "gulp-util": "~2.2.19",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.3.1",
+    "gulp-sass": "~0.7.2",
+    "gulp-jshint": "~1.6.3",
+    "jshint-stylish": "~0.2.0",
+    "gulp-autoprefixer": "0.0.7",
+    "browser-sync": "~1.1.2",
+    "gulp-filter": "~0.5.0"
+  }
+}

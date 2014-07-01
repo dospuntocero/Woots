@@ -1,0 +1,22 @@
+{
+  "name": "Woots",
+  "version": "0.0.1",
+  "authors": [
+    "Jamie Spittal <spittal@randomshapes.com>",
+    "Matthew Hall <matt@randomshapes.com>"
+  ],
+  "description": "A starter template for Wordpress using Gulp to build and Bower for dependency management.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap-sass-official": "~3.2.0"
+  }
+}
