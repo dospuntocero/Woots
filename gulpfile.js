@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     stylish = require('jshint-stylish');
 
 //name of the proxy for the server, useful if using something like MAMP or WAMP add port if necessary
-proxyName = "http://thisisatest.site";
+proxyName = "http://EnterYourProxyHere.site";
 
 jsHintSources = [
   'assets/js/*.js'
@@ -82,10 +82,7 @@ gulp.task('php', function() {
 
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        // proxy: proxyName
-        server: {
-
-        }
+        proxy: proxyName
     });
 });
 
