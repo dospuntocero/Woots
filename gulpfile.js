@@ -10,9 +10,9 @@ var gulp = require('gulp'),
     stylish = require('jshint-stylish');
 
 //name of the proxy for the server, useful if using something like MAMP or WAMP add port if necessary
-proxyName = "http://EnterYourProxyHere.site";
+proxyName = "http://test.site";
 
-jsHintSources = [
+jsWatchSources = [
   'assets/js/*.js'
 ];
 
@@ -47,7 +47,7 @@ sassIncludePaths = [
 
 //Development Tasks
 gulp.task('jsHint', function() {
-  return gulp.src(jsHintSources)
+  return gulp.src(jsWatchSources)
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });
@@ -87,7 +87,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(jsSources, ['jsHint','jsDev']);
+  gulp.watch(jsWatchSources, ['jsHint','jsDev']);
   gulp.watch('assets/sass/*.scss', ['sassDev']);
   gulp.watch('*.php', ['php']);
 });

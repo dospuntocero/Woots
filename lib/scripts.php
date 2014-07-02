@@ -11,7 +11,7 @@
  * 3. /theme/assets/js/main.min.js (in footer)
  */
 function roots_scripts() {
-  wp_enqueue_style('woots_main', get_template_directory_uri() . '/assets/compiled/css/main.min.css', false, '9880649384aea9f1ee166331c0a30daa');
+  wp_enqueue_style('woots_main', get_template_directory_uri() . '/assets/compiled/css/app.css', false, '9880649384aea9f1ee166331c0a30daa');
 
   if (is_single() && comments_open() && get_option('thread_comments')) {
     wp_enqueue_script('comment-reply');

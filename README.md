@@ -79,6 +79,16 @@ bower list --paths
 
 This will list all the paths for the files you want.
 
+**Q: Something strange is happening with my virtualhost/proxy server, while using MAMP or whatever. Files aren't linking correctly in Wordpress ect.
+
+A: Remeber to put this in your wp-config.php file:
+
+```
+define('WP_HOME','http://nameofproxy.site/');
+define('WP_SITEURL','http://nameofproxy.site/');
+```
+That should fix it up!
+
 ## Configuration
 
 Edit `lib/config.php` to enable or disable support for various theme functions and to define constants that are used throughout the theme.
