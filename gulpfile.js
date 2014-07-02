@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     stylish = require('jshint-stylish');
 
 //name of the proxy for the server, useful if using something like MAMP or WAMP add port if necessary
-proxyName = "http://test.site";
+proxyName = "http://yourProxyServer.site";
 
 jsWatchSources = [
   'assets/js/*.js'
