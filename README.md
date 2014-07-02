@@ -79,7 +79,7 @@ bower list --paths
 
 This will list all the paths for the files you want.
 
-**Q: Something strange is happening with my virtualhost/proxy server, while using MAMP or whatever. Files aren't linking correctly in Wordpress ect.
+**Q: Something strange is happening with my virtualhost/proxy server, while using MAMP or whatever. Files aren't linking correctly in Wordpress ect.**
 
 A: Remeber to put this in your wp-config.php file:
 
