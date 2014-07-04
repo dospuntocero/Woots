@@ -7,7 +7,10 @@ var gulp = require('gulp'),
     prefix = require('gulp-autoprefixer'),
     jshint = require('gulp-jshint'),
     filter = require('gulp-filter'),
+    changed = require('gulp-changed'),
     stylish = require('jshint-stylish');
+
+var reload = browserSync.reload;
 
 //name of the proxy for the server, useful if using something like MAMP or WAMP add port if necessary
 proxyName = "http://yourProxyServer.site";
@@ -49,6 +52,7 @@ sassIncludePaths = [
 gulp.task('jsHint', function() {
   return gulp.src(jsWatchSources)
     .pipe(jshint())
+    .pipe(changed('assets/compiled/js/'))
     .pipe(jshint.reporter(stylish));
 });
 
@@ -73,12 +77,6 @@ gulp.task('sassDev', function() {
     .pipe(browserSync.reload({stream:true}));
 });
 
-//You can add a validator to this if you'd like.
-gulp.task('php', function() {
-  gulp.src('*.php')
-    .pipe(browserSync.reload({stream:true}))
-});
-
 
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
@@ -88,8 +86,8 @@ gulp.task('browser-sync', function() {
 
 gulp.task('watch', function() {
   gulp.watch(jsWatchSources, ['jsHint','jsDev']);
-  gulp.watch('assets/sass/*.scss', ['sassDev']);
-  gulp.watch('*.php', ['php']);
+  gulp.watch('assets/sass/**/*.scss', ['sassDev']);
+  gulp.watch('**/*.php', reload);
 });
 
 
